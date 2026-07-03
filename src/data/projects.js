@@ -34,7 +34,7 @@ export const projects = [
   },
   {
   id: 'qingshui-art-village',
-  title: '清水眷村文化園區網站',
+  title: '清水眷村文化園區網站改版',
   category: 'Cultural Website / Vue SPA',
   year: '2026',
   role: 'Frontend Developer',
