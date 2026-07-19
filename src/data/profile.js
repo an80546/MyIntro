@@ -3,7 +3,7 @@ import { LANGUAGES, translateField } from '../i18n/index.js'
 const profileData = {
   name: {
     [LANGUAGES.ZH]: '陳奕鈞',
-    [LANGUAGES.EN]: 'Yi-Jun Chen',
+    [LANGUAGES.EN]: 'Yi-Chun Chen',
   },
   title: {
     [LANGUAGES.ZH]: '資料庫、前端設計與 Vue 開發學習者',
