@@ -1,11 +1,19 @@
 <script setup>
+import { computed } from 'vue'
 import ProfileCard from '../components/ProfileCard.vue'
-import { profile } from '../data/profile'
+import { getProfile } from '../data/profile'
+import { useI18n } from '../i18n/index.js'
+
+const { currentLanguage, messages } = useI18n()
+
+const profile = computed(() => getProfile(currentLanguage.value))
+const profileLabels = computed(() => messages.value.profile)
+const homeLabels = computed(() => messages.value.home)
 </script>
 
 <template>
   <div class="home-view">
-    <ProfileCard :profile="profile" />
+    <ProfileCard :profile="profile" :labels="profileLabels" :actions="homeLabels" />
   </div>
 </template>
 

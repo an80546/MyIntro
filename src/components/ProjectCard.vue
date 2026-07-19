@@ -5,6 +5,10 @@ defineProps({
     type: Object,
     required: true,
   },
+  labels: {
+    type: Object,
+    required: true,
+  },
 })
 
 // defineEmits 宣告子元件會發出的事件；ProjectCard 不直接換頁，而是通知上層處理。
@@ -26,7 +30,7 @@ const emit = defineEmits(['view-project'])
     <div class="card-actions">
       <!-- 點擊後 emit 作品 id 給 ProjectsView，由上層用 router.push 前往詳細頁。 -->
       <button class="button primary" type="button" @click="emit('view-project', project.id)">
-        查看作品
+        {{ labels.viewProject }}
       </button>
     </div>
   </article>

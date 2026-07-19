@@ -2,26 +2,31 @@
 import { computed } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import ProjectDetail from '../components/ProjectDetail.vue'
-import { projects } from '../data/projects'
+import { getProjects } from '../data/projects'
+import { useI18n } from '../i18n/index.js'
 
 // useRoute 取得目前網址資訊，例如 /projects/:id 裡面的 id。
 const route = useRoute()
+const { currentLanguage, messages } = useI18n()
+
+const projects = computed(() => getProjects(currentLanguage.value))
+const labels = computed(() => messages.value.projectDetail)
 
 // 透過 route.params.id 找出對應作品；computed 讓資料依路由參數自動更新。
-const project = computed(() => projects.find((item) => item.id === route.params.id))
+const project = computed(() => projects.value.find((item) => item.id === route.params.id))
 </script>
 
 <template>
   <section>
-    <RouterLink class="secondary-link back-link" to="/projects">返回作品列表</RouterLink>
+    <RouterLink class="secondary-link back-link" to="/projects">{{ labels.back }}</RouterLink>
 
-    <ProjectDetail v-if="project" :project="project" />
+    <ProjectDetail v-if="project" :project="project" :labels="labels" />
 
     <!-- v-else 處理找不到資料的情況，避免網址 id 錯誤時畫面空白。 -->
     <div v-else class="not-found">
-      <p class="eyebrow">Not Found</p>
-      <h1>找不到這個作品</h1>
-      <p>目前網址中的作品 id 是「{{ route.params.id }}」，資料中沒有相符的作品。</p>
+      <p class="eyebrow">{{ labels.notFoundEyebrow }}</p>
+      <h1>{{ labels.notFoundTitle }}</h1>
+      <p>{{ labels.notFoundDescription(route.params.id) }}</p>
     </div>
   </section>
 </template>

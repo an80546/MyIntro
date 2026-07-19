@@ -5,6 +5,10 @@ defineProps({
     type: Object,
     required: true,
   },
+  labels: {
+    type: Object,
+    required: true,
+  },
 })
 </script>
 
@@ -23,37 +27,37 @@ defineProps({
           target="_blank"
           rel="noopener noreferrer"
         >
-          前往網站
+          {{ labels.visitSite }}
         </a>
       </div>
       <dl class="meta-grid">
         <div>
-          <dt>年份</dt>
+          <dt>{{ labels.year }}</dt>
           <dd>{{ project.year }}</dd>
         </div>
         <div>
-          <dt>角色</dt>
+          <dt>{{ labels.role }}</dt>
           <dd>{{ project.role }}</dd>
         </div>
       </dl>
     </div>
 
     <div class="detail-section">
-      <h2>使用技術</h2>
+      <h2>{{ labels.technologies }}</h2>
       <ul class="tag-list">
         <li v-for="tag in project.tags" :key="tag">{{ tag }}</li>
       </ul>
     </div>
 
     <div class="detail-section">
-      <h2>功能重點</h2>
+      <h2>{{ labels.features }}</h2>
       <ul class="feature-list">
         <li v-for="feature in project.features" :key="feature">{{ feature }}</li>
       </ul>
     </div>
 
     <div class="result-box">
-      <h2>成果</h2>
+      <h2>{{ labels.result }}</h2>
       <p>{{ project.result }}</p>
     </div>
   </article>

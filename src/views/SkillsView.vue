@@ -1,17 +1,22 @@
 <script setup>
+import { computed } from 'vue'
 import SkillCard from '../components/SkillCard.vue'
-import { certifications } from '../data/certification'
+import { getCertifications } from '../data/certification'
 import { skills } from '../data/skills'
+import { useI18n } from '../i18n/index.js'
+
+const { currentLanguage, messages } = useI18n()
+
+const certifications = computed(() => getCertifications(currentLanguage.value))
+const labels = computed(() => messages.value.skills)
 </script>
 
 <template>
   <section>
     <header class="page-header">
-      <p class="eyebrow">Skills</p>
-      <h1 class="page-title">技能</h1>
-      <p class="page-description">
-      <span>擁有的證照以及擅長的技能、領域</span>
-      </p>
+      <p class="eyebrow">{{ labels.eyebrow }}</p>
+      <h1 class="page-title">{{ labels.title }}</h1>
+      <p class="page-description">{{ labels.description }}</p>
     </header>
 
     <div class="skills-grid">
@@ -21,8 +26,8 @@ import { skills } from '../data/skills'
 
     <section class="certifications-section" aria-labelledby="certifications-title">
       <header class="section-header">
-        <p class="eyebrow">Certifications</p>
-        <h2 id="certifications-title">證照</h2>
+        <p class="eyebrow">{{ labels.certificationsEyebrow }}</p>
+        <h2 id="certifications-title">{{ labels.certificationsTitle }}</h2>
       </header>
 
       <div class="skills-grid">

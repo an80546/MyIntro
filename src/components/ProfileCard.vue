@@ -8,6 +8,14 @@ defineProps({
     type: Object,
     required: true,
   },
+  labels: {
+    type: Object,
+    required: true,
+  },
+  actions: {
+    type: Object,
+    required: true,
+  },
 })
 
 const isIntroExpanded = ref(false)
@@ -16,12 +24,12 @@ const isIntroExpanded = ref(false)
 <template>
   <section class="profile-card">
     <div class="profile-rail">
-      <div class="avatar" aria-hidden="true">
-        <img class="profile-photo" src="/me.jpg" :alt="`${profile.name} 的個人照片`" />
+      <div class="avatar">
+        <img class="profile-photo" src="/me.jpg" :alt="labels.photoAlt" />
       </div>
 
-      <div class="contact-list" aria-label="Contact me">
-        <span class="contact-label">Contact me</span>
+      <div class="contact-list" :aria-label="labels.contact">
+        <span class="contact-label">{{ labels.contact }}</span>
         <a :href="`mailto:${profile.email}`">{{ profile.email }}</a>
         <span>{{ profile.location }}</span>
         <span>Tel : {{ profile.phone }}</span>
@@ -29,27 +37,20 @@ const isIntroExpanded = ref(false)
     </div>
 
     <div class="profile-content">
-      <p class="eyebrow">About Me</p>
+      <p class="eyebrow">{{ labels.about }}</p>
       <h1>{{ profile.name }}</h1>
       <p class="title">{{ profile.title }}</p>
-      <div class="profile-actions" aria-label="Portfolio links">
-        <RouterLink class="primary-link" to="/projects">作品</RouterLink>
-        <RouterLink class="secondary-link" to="/skills">技能</RouterLink>
+      <div class="profile-actions" :aria-label="labels.linksLabel">
+        <RouterLink class="primary-link" to="/projects">{{ actions.projectsAction }}</RouterLink>
+        <RouterLink class="secondary-link" to="/skills">{{ actions.skillsAction }}</RouterLink>
       </div>
-      <p class="intro" :class="{ 'intro--collapsed': !isIntroExpanded }">我是陳奕鈞，目前就讀於勤益科技大學資訊管理系。平時熱衷於體驗各類軟體與遊戲，並透過程式追蹤、規則拆解與使用者觀察來理解產品設計邏輯。我曾參與遊戲 Demo 的 UX
-        回饋，從中學習以使用者角度思考問題，並透過分析與整理提出具體建議。 <br><br>
-
-        目前正持續學習前端開發與 UI/UX 設計，熟悉 Vue 基礎、資料整理與介面製作，並嘗試將技術與設計結合，打造兼具功能性與良好體驗的作品。
-        <br><br>
-
-        我的個性細心、慢熟但真誠，擅長傾聽與客觀分析。當團隊遇到迷惘或問題時，我能運用對大眾心理學的興趣，協助夥伴釐清現況並共同尋找解決方向。同時，我對自我要求較高，習慣思考如何優化流程與提升效率，也具備良好的文字表達能力、快速打字能力，以及流暢的溝通能力。希望未來能持續在資訊與設計領域成長，將想法轉化為能被理解、被使用的優質產品。
-      </p>
+      <p class="intro" :class="{ 'intro--collapsed': !isIntroExpanded }">{{ profile.fullIntro }}</p>
       <button class="intro-toggle" type="button" @click="isIntroExpanded = !isIntroExpanded">
-        {{ isIntroExpanded ? '收合自我介紹' : '展開完整自我介紹' }}
+        {{ isIntroExpanded ? labels.collapseIntro : labels.expandIntro }}
       </button>
 
-      <aside class="motto-card" aria-label="座右銘">
-        <span class="motto-label">座右銘</span>
+      <aside class="motto-card" :aria-label="labels.motto">
+        <span class="motto-label">{{ labels.motto }}</span>
         <p>{{ profile.motto }}</p>
       </aside>
 
@@ -188,6 +189,7 @@ h1 {
   margin: 18px 0 0;
   color: #4f6074;
   font-size: 1.05rem;
+  white-space: pre-line;
 }
 
 .intro-toggle {

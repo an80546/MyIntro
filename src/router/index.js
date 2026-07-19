@@ -4,7 +4,6 @@ import ProjectDetailView from '../views/ProjectDetailView.vue'
 import ProjectsView from '../views/ProjectsView.vue'
 import SkillsView from '../views/SkillsView.vue'
 
-// createRouter 建立 Vue Router 實例，createWebHistory 讓網址看起來像一般網站路徑。
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,7 +23,6 @@ const router = createRouter({
       component: ProjectsView,
     },
     {
-      // :id 是動態路由參數，詳細頁可以用 route.params.id 取得是哪一個作品。
       path: '/projects/:id',
       name: 'project-detail',
       component: ProjectDetailView,
